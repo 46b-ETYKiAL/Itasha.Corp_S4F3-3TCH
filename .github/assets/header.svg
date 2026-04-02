@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+  <defs>
+    <pattern id="scanlines" patternUnits="userSpaceOnUse" width="1280" height="4">
+      <rect width="1280" height="2" fill="transparent"/>
+      <rect y="2" width="1280" height="2" fill="rgba(0,0,0,0.15)"/>
+    </pattern>
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="transparent"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.4)"/>
+    </radialGradient>
+    <filter id="phosphor">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="0.8" result="bloom"/>
+      <feMerge><feMergeNode in="bloom"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Outer CRT case -->
+  <rect x="0" y="0" width="1280" height="420" rx="12" ry="12" fill="#111118"/>
+  <rect x="2" y="2" width="1276" height="416" rx="11" ry="11" fill="#18181f" stroke="#2a2833" stroke-width="1"/>
+  <line x1="24" y1="14" x2="1256" y2="14" stroke="#2a2833" stroke-width="0.5"/>
+  <line x1="24" y1="406" x2="1256" y2="406" stroke="#2a2833" stroke-width="0.5"/>
+
+  <!-- Inner screen -->
+  <rect x="28" y="22" width="1224" height="366" rx="6" ry="6" fill="#08060d"/>
+  <rect x="28" y="22" width="1224" height="366" rx="6" ry="6" fill="none" stroke="#1a1825" stroke-width="1"/>
+  <rect x="28" y="22" width="1224" height="366" rx="6" ry="6" fill="url(#scanlines)"/>
+  <rect x="28" y="22" width="1224" height="366" rx="6" ry="6" fill="url(#vignette)"/>
+
+  <!-- Text content -->
+  <g filter="url(#phosphor)">
+    <text x="640" y="72" text-anchor="middle" font-family="'SF Mono','Fira Code','Cascadia Code','JetBrains Mono',Consolas,monospace" font-size="13" fill="#5a5869" letter-spacing="6">I T A S H A . C O R P</text>
+
+    <text x="640" y="112" text-anchor="middle" font-family="'SF Mono','Fira Code','Cascadia Code','JetBrains Mono',Consolas,monospace" font-size="18" fill="#00fffe" letter-spacing="4" font-weight="bold">[ S 4 F 3 : 3 T C H ]</text>
+    <line x1="450" y1="124" x2="830" y2="124" stroke="#00fffe" stroke-width="0.5" opacity="0.4"/>
+
+    <text x="160" y="162" font-family="'SF Mono','Fira Code','Cascadia Code','JetBrains Mono',Consolas,monospace" font-size="12" fill="#5a5869">etch.boot ───────────────────────────────────────────────────────────────</text>
+
+    <text x="180" y="184" font-family="'SF Mono','Fira Code','Cascadia Code','JetBrains Mono',Consolas,monospace" font-size="12" fill="#00fffe">&gt; node.author(spec_to_code)</text>
+    <text x="920" y="184" font-family="'SF Mono','Fira Code','Cascadia Code','JetBrains Mono',Consolas,monospace" font-size="12" fill="#01fe36">[ OK ]</text>
+
+    <text x="180" y="206" font-family="'SF Mono','Fira Code','Cascadia Code','JetBrains Mono',Consolas,monospace" font-size="12" fill="#00fffe">&gt; workflow.validate(schema_v1)</text>
+    <text x="920" y="206" font-family="'SF Mono','Fira Code','Cascadia Code','JetBrains Mono',Consolas,monospace" font-size="12" fill="#01fe36">[ OK ]</text>
+
+    <text x="180" y="228" font-family="'SF Mono','Fira Code','Cascadia Code','JetBrains Mono',Consolas,monospace" font-size="12" fill="#00fffe">&gt; quality.enhance(prompt_refine)</text>
+    <text x="920" y="228" font-family="'SF Mono','Fira Code','Cascadia Code','JetBrains Mono',Consolas,monospace" font-size="12" fill="#01fe36">[ OK ]</text>
+
+    <text x="180" y="250" font-family="'SF Mono','Fira Code','Cascadia Code','JetBrains Mono',Consolas,monospace" font-size="12" fill="#00fffe">&gt; publish.scaffold(comfyui_registry)</text>
+    <text x="920" y="250" font-family="'SF Mono','Fira Code','Cascadia Code','JetBrains Mono',Consolas,monospace" font-size="12" fill="#01fe36">[ OK ]</text>
+
+    <text x="180" y="272" font-family="'SF Mono','Fira Code','Cascadia Code','JetBrains Mono',Consolas,monospace" font-size="12" fill="#00fffe">&gt; security.scan(public_surface)</text>
+    <text x="920" y="272" font-family="'SF Mono','Fira Code','Cascadia Code','JetBrains Mono',Consolas,monospace" font-size="12" fill="#01fe36">[ OK ]</text>
+
+    <text x="160" y="296" font-family="'SF Mono','Fira Code','Cascadia Code','JetBrains Mono',Consolas,monospace" font-size="12" fill="#5a5869">─────────────────────────────────────────────────────────────────────────────</text>
+
+    <text x="160" y="322" font-family="'SF Mono','Fira Code','Cascadia Code','JetBrains Mono',Consolas,monospace" font-size="12" fill="#5a5869">etch status .................................................</text>
+    <text x="920" y="322" font-family="'SF Mono','Fira Code','Cascadia Code','JetBrains Mono',Consolas,monospace" font-size="12" fill="#01fe36" font-weight="bold">[ 0NL1N3 ]</text>
+  </g>
+
+  <!-- Scanline shimmer -->
+  <rect x="36" y="352" width="1208" height="2" fill="#00fffe" opacity="0.06"/>
+  <rect x="36" y="356" width="1208" height="1" fill="#00fffe" opacity="0.03"/>
+
+  <!-- Power LED -->
+  <circle cx="1232" cy="400" r="4" fill="#01fe36" opacity="0.8"/>
+  <circle cx="1232" cy="400" r="2" fill="#01fe36"/>
+
+  <!-- Bezel labels -->
+  <text x="56" y="403" font-family="'SF Mono','Fira Code','Cascadia Code','JetBrains Mono',Consolas,monospace" font-size="9" fill="#2a2833" letter-spacing="2">ITASHA.CORP</text>
+  <text x="1140" y="403" font-family="'SF Mono','Fira Code','Cascadia Code','JetBrains Mono',Consolas,monospace" font-size="9" fill="#2a2833">CRT-S4F3</text>
+</svg>

@@ -1,0 +1,94 @@
+{
+  "1": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "flux2-dev.safetensors"
+    }
+  },
+  "2": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "{{prompt}}",
+      "clip": ["1", 1]
+    }
+  },
+  "3": {
+    "class_type": "FluxGuidance",
+    "inputs": {
+      "guidance": 1.0,
+      "conditioning": ["2", 0]
+    }
+  },
+  "4": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "{{face_image}}"
+    }
+  },
+  "5": {
+    "class_type": "PulidFluxModelLoader",
+    "inputs": {}
+  },
+  "6": {
+    "class_type": "PulidFluxInsightFaceLoader",
+    "inputs": {
+      "provider": "CPU"
+    }
+  },
+  "7": {
+    "class_type": "PulidFluxEvaClipLoader",
+    "inputs": {}
+  },
+  "8": {
+    "class_type": "ApplyPulidFlux",
+    "inputs": {
+      "model": ["1", 0],
+      "pulid_flux": ["5", 0],
+      "eva_clip": ["7", 0],
+      "face_analysis": ["6", 0],
+      "image": ["4", 0],
+      "weight": 0.9,
+      "start_at": 0.0,
+      "end_at": 1.0,
+      "fusion": "mean",
+      "fusion_face_only": true
+    }
+  },
+  "9": {
+    "class_type": "EmptySD3LatentImage",
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "batch_size": 1
+    }
+  },
+  "10": {
+    "class_type": "KSampler",
+    "inputs": {
+      "seed": 42,
+      "steps": 20,
+      "cfg": 1.0,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1.0,
+      "model": ["8", 0],
+      "positive": ["3", 0],
+      "negative": ["3", 0],
+      "latent_image": ["9", 0]
+    }
+  },
+  "11": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": ["10", 0],
+      "vae": ["1", 2]
+    }
+  },
+  "12": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "filename_prefix": "flux-pulid",
+      "images": ["11", 0]
+    }
+  }
+}

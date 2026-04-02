@@ -1,0 +1,50 @@
+{
+  "_meta": {
+    "name": "4x-upscale",
+    "description": "4x ESRGAN upscale with optional refinement pass",
+    "version": "1.0.0",
+    "author": "comfyui-engine",
+    "use_case": "Upscale generated images to 4x resolution using ESRGAN model",
+    "hardware_requirements": {
+      "vram_min_gb": 6,
+      "vram_recommended_gb": 12,
+      "batch_limit": 1
+    }
+  },
+  "1": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "{{INPUT_IMAGE}}"
+    }
+  },
+  "2": {
+    "class_type": "UpscaleModelLoader",
+    "inputs": {
+      "model_name": "RealESRGAN_x4plus_anime_6B.pth"
+    }
+  },
+  "3": {
+    "class_type": "ImageUpscaleWithModel",
+    "inputs": {
+      "upscale_model": ["2", 0],
+      "image": ["1", 0]
+    }
+  },
+  "4": {
+    "class_type": "ImageScale",
+    "inputs": {
+      "image": ["3", 0],
+      "upscale_method": "lanczos",
+      "width": 4096,
+      "height": 4096,
+      "crop": "disabled"
+    }
+  },
+  "5": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "filename_prefix": "upscale_4x",
+      "images": ["4", 0]
+    }
+  }
+}

@@ -1,0 +1,14 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "s4f3-etch"
+version = "0.1.0"
+description = "Open-source ComfyUI custom nodes. Image generation infrastructure."
+license = "Apache-2.0"
+requires-python = ">=3.10"
+dependencies = [
+    "pydantic",
+    "jinja2",
+]

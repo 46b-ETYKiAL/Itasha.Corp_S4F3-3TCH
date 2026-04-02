@@ -1,0 +1,153 @@
+{
+  "_meta": {
+    "name": "sticker-batch",
+    "description": "Sticker pack creation with transparent backgrounds",
+    "version": "1.0.0",
+    "author": "comfyui-engine",
+    "use_case": "Sticker packs, emoji sets, chat stickers with alpha transparency",
+    "hardware_requirements": {
+      "vram_min_gb": 12,
+      "vram_recommended_gb": 16,
+      "batch_limit": 4
+    }
+  },
+  "inputs": {
+    "stickers": [
+      {
+        "sticker_id": "s001",
+        "expression": "happy",
+        "prompt_suffix": "happy expression, smiling"
+      },
+      {
+        "sticker_id": "s002",
+        "expression": "sad",
+        "prompt_suffix": "sad expression, downcast eyes"
+      },
+      {
+        "sticker_id": "s003",
+        "expression": "surprised",
+        "prompt_suffix": "surprised expression, wide eyes"
+      },
+      {
+        "sticker_id": "s004",
+        "expression": "thinking",
+        "prompt_suffix": "thinking expression, hand on chin"
+      }
+    ],
+    "base_prompt": {
+      "positive": "op23a, chibi style, sticker design, simple background, white background, cute, expressive, solo, upper body",
+      "negative": "bright colors, neon, saturated, vibrant, harsh lighting, waifu, girlfriend, romantic, suggestive, nsfw, explicit, low quality, worst quality, bad anatomy, bad hands, extra fingers, missing fingers, blurry, watermark, complex background, multiple characters"
+    },
+    "lora": {
+      "name": "operator23a-v1.safetensors",
+      "strength": 0.85,
+      "trigger_word": "op23a"
+    },
+    "remove_background": {
+      "enabled": true,
+      "model": "rembg",
+      "threshold": 0.5
+    },
+    "settings": {
+      "checkpoint": "ponyDiffusionV6XL.safetensors",
+      "resolution": {
+        "width": 512,
+        "height": 512
+      },
+      "steps": 20,
+      "cfg": 7,
+      "sampler": "dpmpp_2m",
+      "scheduler": "karras",
+      "batch_size": 1,
+      "base_seed": -1
+    }
+  },
+  "workflow": {
+    "_comment": "Sticker workflow with background removal for transparency",
+    "_execution_mode": "sequential_stickers",
+    "checkpoint_loader": {
+      "class_type": "CheckpointLoaderSimple",
+      "inputs": {
+        "ckpt_name": ["inputs", "settings", "checkpoint"]
+      }
+    },
+    "lora_loader": {
+      "class_type": "LoraLoader",
+      "inputs": {
+        "lora_name": ["inputs", "lora", "name"],
+        "strength_model": ["inputs", "lora", "strength"],
+        "strength_clip": ["inputs", "lora", "strength"],
+        "model": ["checkpoint_loader", 0],
+        "clip": ["checkpoint_loader", 1]
+      }
+    },
+    "negative_prompt": {
+      "class_type": "CLIPTextEncode",
+      "inputs": {
+        "text": ["inputs", "base_prompt", "negative"],
+        "clip": ["lora_loader", 1]
+      }
+    },
+    "_sticker_template": {
+      "_comment": "This template is repeated for each sticker",
+      "positive_prompt": {
+        "class_type": "CLIPTextEncode",
+        "inputs": {
+          "text": {
+            "_concat": [
+              ["inputs", "base_prompt", "positive"],
+              ", ",
+              ["sticker", "prompt_suffix"]
+            ]
+          },
+          "clip": ["lora_loader", 1]
+        }
+      },
+      "empty_latent": {
+        "class_type": "EmptyLatentImage",
+        "inputs": {
+          "width": ["inputs", "settings", "resolution", "width"],
+          "height": ["inputs", "settings", "resolution", "height"],
+          "batch_size": 1
+        }
+      },
+      "sampler": {
+        "class_type": "KSampler",
+        "inputs": {
+          "seed": ["sticker", "seed"],
+          "steps": ["inputs", "settings", "steps"],
+          "cfg": ["inputs", "settings", "cfg"],
+          "sampler_name": ["inputs", "settings", "sampler"],
+          "scheduler": ["inputs", "settings", "scheduler"],
+          "denoise": 1,
+          "model": ["lora_loader", 0],
+          "positive": ["positive_prompt", 0],
+          "negative": ["negative_prompt", 0],
+          "latent_image": ["empty_latent", 0]
+        }
+      },
+      "vae_decode": {
+        "class_type": "VAEDecode",
+        "inputs": {
+          "samples": ["sampler", 0],
+          "vae": ["checkpoint_loader", 2]
+        }
+      },
+      "rembg": {
+        "class_type": "RemBG",
+        "inputs": {
+          "image": ["vae_decode", 0]
+        }
+      },
+      "save_image": {
+        "class_type": "SaveImage",
+        "inputs": {
+          "filename_prefix": {
+            "_concat": ["sticker-", ["sticker", "sticker_id"]]
+          },
+          "images": ["rembg", 0]
+        }
+      }
+    }
+  }
+}

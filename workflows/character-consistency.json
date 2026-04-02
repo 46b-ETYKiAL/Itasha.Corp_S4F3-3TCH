@@ -1,0 +1,143 @@
+{
+  "_meta": {
+    "name": "character-consistency",
+    "description": "Multi-image batches with character consistency using IP-Adapter",
+    "version": "1.0.0",
+    "author": "comfyui-engine",
+    "use_case": "Consistent character across multiple poses/angles, turnaround sheets",
+    "hardware_requirements": {
+      "vram_min_gb": 12,
+      "vram_recommended_gb": 16,
+      "batch_limit": 4
+    }
+  },
+  "inputs": {
+    "prompt": {
+      "positive": "",
+      "negative": "bright colors, neon, saturated, vibrant, harsh lighting, chibi, super deformed, kawaii, uwu, meme, reaction image, waifu, girlfriend, romantic, suggestive, nsfw, explicit, low quality, worst quality, bad anatomy, bad hands, extra fingers, missing fingers, blurry, watermark"
+    },
+    "lora": {
+      "name": "operator23a-v1.safetensors",
+      "strength": 0.8,
+      "trigger_word": "op23a"
+    },
+    "ipadapter": {
+      "face_reference": "",
+      "style_reference": "",
+      "face_strength": 0.7,
+      "style_strength": 0.5,
+      "model": "ip-adapter-faceid-sdxl"
+    },
+    "settings": {
+      "checkpoint": "ponyDiffusionV6XL.safetensors",
+      "resolution": {
+        "width": 1024,
+        "height": 1024
+      },
+      "steps": 25,
+      "cfg": 7,
+      "sampler": "dpmpp_2m",
+      "scheduler": "karras",
+      "batch_size": 4,
+      "seed": 12345678
+    }
+  },
+  "workflow": {
+    "_comment": "Workflow nodes for character consistency using IP-Adapter FaceID",
+    "checkpoint_loader": {
+      "class_type": "CheckpointLoaderSimple",
+      "inputs": {
+        "ckpt_name": ["inputs", "settings", "checkpoint"]
+      }
+    },
+    "lora_loader": {
+      "class_type": "LoraLoader",
+      "inputs": {
+        "lora_name": ["inputs", "lora", "name"],
+        "strength_model": ["inputs", "lora", "strength"],
+        "strength_clip": ["inputs", "lora", "strength"],
+        "model": ["checkpoint_loader", 0],
+        "clip": ["checkpoint_loader", 1]
+      }
+    },
+    "ipadapter_loader": {
+      "class_type": "IPAdapterModelLoader",
+      "inputs": {
+        "ipadapter_file": ["inputs", "ipadapter", "model"]
+      }
+    },
+    "clip_vision_loader": {
+      "class_type": "CLIPVisionLoader",
+      "inputs": {
+        "clip_name": "CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors"
+      }
+    },
+    "face_image_loader": {
+      "class_type": "LoadImage",
+      "inputs": {
+        "image": ["inputs", "ipadapter", "face_reference"]
+      }
+    },
+    "ipadapter_apply": {
+      "class_type": "IPAdapterApply",
+      "inputs": {
+        "ipadapter": ["ipadapter_loader", 0],
+        "clip_vision": ["clip_vision_loader", 0],
+        "image": ["face_image_loader", 0],
+        "model": ["lora_loader", 0],
+        "weight": ["inputs", "ipadapter", "face_strength"]
+      }
+    },
+    "positive_prompt": {
+      "class_type": "CLIPTextEncode",
+      "inputs": {
+        "text": ["inputs", "prompt", "positive"],
+        "clip": ["lora_loader", 1]
+      }
+    },
+    "negative_prompt": {
+      "class_type": "CLIPTextEncode",
+      "inputs": {
+        "text": ["inputs", "prompt", "negative"],
+        "clip": ["lora_loader", 1]
+      }
+    },
+    "empty_latent": {
+      "class_type": "EmptyLatentImage",
+      "inputs": {
+        "width": ["inputs", "settings", "resolution", "width"],
+        "height": ["inputs", "settings", "resolution", "height"],
+        "batch_size": ["inputs", "settings", "batch_size"]
+      }
+    },
+    "sampler": {
+      "class_type": "KSampler",
+      "inputs": {
+        "seed": ["inputs", "settings", "seed"],
+        "steps": ["inputs", "settings", "steps"],
+        "cfg": ["inputs", "settings", "cfg"],
+        "sampler_name": ["inputs", "settings", "sampler"],
+        "scheduler": ["inputs", "settings", "scheduler"],
+        "denoise": 1,
+        "model": ["ipadapter_apply", 0],
+        "positive": ["positive_prompt", 0],
+        "negative": ["negative_prompt", 0],
+        "latent_image": ["empty_latent", 0]
+      }
+    },
+    "vae_decode": {
+      "class_type": "VAEDecode",
+      "inputs": {
+        "samples": ["sampler", 0],
+        "vae": ["checkpoint_loader", 2]
+      }
+    },
+    "save_image": {
+      "class_type": "SaveImage",
+      "inputs": {
+        "filename_prefix": "character-consistency",
+        "images": ["vae_decode", 0]
+      }
+    }
+  }
+}
