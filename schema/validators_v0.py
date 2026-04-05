@@ -20,7 +20,9 @@ def validate_v0(data: dict[str, Any], report: "WorkflowValidationReport") -> Non
     validate_v0_links(data, report)
 
 
-def validate_v0_version(data: dict[str, Any], report: "WorkflowValidationReport") -> None:
+def validate_v0_version(
+    data: dict[str, Any], report: "WorkflowValidationReport"
+) -> None:
     """Validate version field for V0."""
     version = data.get("version")
     if version is None:
@@ -44,7 +46,9 @@ def validate_v0_version(data: dict[str, Any], report: "WorkflowValidationReport"
         )
 
 
-def validate_v0_id_trackers(data: dict[str, Any], report: "WorkflowValidationReport") -> None:
+def validate_v0_id_trackers(
+    data: dict[str, Any], report: "WorkflowValidationReport"
+) -> None:
     """Validate last_node_id and last_link_id for V0."""
     # These are recommended but not strictly required in V0
     if "last_node_id" not in data:
@@ -75,7 +79,10 @@ def validate_v0_links(data: dict[str, Any], report: "WorkflowValidationReport") 
     if links is None:
         report.add_result(
             SchemaValidationResult(
-                valid=False, field="links", message="Missing required 'links' field", severity="error"
+                valid=False,
+                field="links",
+                message="Missing required 'links' field",
+                severity="error",
             )
         )
         return
@@ -126,7 +133,10 @@ def validate_v0_links(data: dict[str, Any], report: "WorkflowValidationReport") 
             if link_id in link_ids:
                 report.add_result(
                     SchemaValidationResult(
-                        valid=False, field=f"links[{i}]", message=f"Duplicate link ID: {link_id}", severity="error"
+                        valid=False,
+                        field=f"links[{i}]",
+                        message=f"Duplicate link ID: {link_id}",
+                        severity="error",
                     )
                 )
             link_ids.add(link_id)

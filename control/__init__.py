@@ -174,5 +174,7 @@ async def server_control(
         return await server.is_running()
     if action == "health":
         return await server.health_check()
-    msg = f"Unknown server action '{action}'. Valid: start, stop, restart, status, health"
+    msg = (
+        f"Unknown server action '{action}'. Valid: start, stop, restart, status, health"
+    )
     raise ValueError(msg)

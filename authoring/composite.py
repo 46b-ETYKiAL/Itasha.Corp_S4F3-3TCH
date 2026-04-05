@@ -61,7 +61,9 @@ def create_composite_spec(
     Raises:
         ValueError: If outputs are invalid for composite use.
     """
-    output_specs = [OutputSpec(name=out_name, type=out_type) for out_name, out_type in outputs]
+    output_specs = [
+        OutputSpec(name=out_name, type=out_type) for out_name, out_type in outputs
+    ]
 
     spec = NodeSpec(
         name=name,

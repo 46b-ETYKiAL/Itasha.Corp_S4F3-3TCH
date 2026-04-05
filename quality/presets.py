@@ -19,7 +19,12 @@ import yaml
 # ---------------------------------------------------------------------------
 
 _PRESETS_YAML = (
-    Path(__file__).resolve().parents[3] / "Libraries" / "workflows" / "ComfyUI" / "config" / "quality-presets.yaml"
+    Path(__file__).resolve().parents[3]
+    / "Libraries"
+    / "workflows"
+    / "ComfyUI"
+    / "config"
+    / "quality-presets.yaml"
 )
 
 # Ordered list — more specific patterns first to avoid false positives.
@@ -96,7 +101,9 @@ def _load_presets_yaml(path: Path | None = None) -> dict[str, Any]:
         data = yaml.safe_load(fh)
 
     if not isinstance(data, dict) or "presets" not in data:
-        raise ValueError(f"Invalid quality-presets YAML: missing top-level 'presets' key in {yaml_path}")
+        raise ValueError(
+            f"Invalid quality-presets YAML: missing top-level 'presets' key in {yaml_path}"
+        )
     return data
 
 
@@ -211,7 +218,9 @@ def get_preset(model_family: str, *, yaml_path: Path | None = None) -> QualityPr
     return presets[model_family]
 
 
-def get_preset_for_checkpoint(checkpoint_name: str, *, yaml_path: Path | None = None) -> QualityPreset:
+def get_preset_for_checkpoint(
+    checkpoint_name: str, *, yaml_path: Path | None = None
+) -> QualityPreset:
     """Detect model family from checkpoint name and return its preset.
 
     Convenience wrapper combining ``detect_model_family`` and ``get_preset``.

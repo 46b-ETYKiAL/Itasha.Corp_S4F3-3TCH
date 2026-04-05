@@ -16,12 +16,20 @@ def main():
     """Command-line interface for workflow validation."""
     import argparse
 
-    parser = argparse.ArgumentParser(description="Validate ComfyUI workflow JSON files against the official schema")
+    parser = argparse.ArgumentParser(
+        description="Validate ComfyUI workflow JSON files against the official schema"
+    )
     parser.add_argument("file", help="Path to workflow JSON file")
-    parser.add_argument("--strict", action="store_true", help="Treat warnings as errors")
-    parser.add_argument("--version", type=int, choices=[0, 1], help="Target schema version (0 or 1)")
+    parser.add_argument(
+        "--strict", action="store_true", help="Treat warnings as errors"
+    )
+    parser.add_argument(
+        "--version", type=int, choices=[0, 1], help="Target schema version (0 or 1)"
+    )
     parser.add_argument("--json", action="store_true", help="Output as JSON")
-    parser.add_argument("--convert", action="store_true", help="Convert to V1 and output")
+    parser.add_argument(
+        "--convert", action="store_true", help="Convert to V1 and output"
+    )
 
     args = parser.parse_args()
 
@@ -33,7 +41,9 @@ def main():
         print(json.dumps(converted, indent=2))
         return 0
 
-    report = validate_workflow_file(args.file, strict=args.strict, target_version=args.version)
+    report = validate_workflow_file(
+        args.file, strict=args.strict, target_version=args.version
+    )
 
     if args.json:
         print(json.dumps(report.to_dict(), indent=2))

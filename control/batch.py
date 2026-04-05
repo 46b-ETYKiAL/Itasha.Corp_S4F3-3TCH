@@ -97,7 +97,9 @@ class BatchGenerator:
         if not sweep_values:
             combos = [{}]
         else:
-            combos = [dict(zip(sweep_keys, vals)) for vals in itertools.product(*sweep_values)]
+            combos = [
+                dict(zip(sweep_keys, vals)) for vals in itertools.product(*sweep_values)
+            ]
 
         base_seed = config.base_params.get("seed", 0)
         all_jobs: list[dict[str, Any]] = []

@@ -15,14 +15,19 @@ if TYPE_CHECKING:
     from .types import WorkflowValidationReport
 
 
-def validate_nodes(data: dict[str, Any], report: "WorkflowValidationReport", version: int) -> None:
+def validate_nodes(
+    data: dict[str, Any], report: "WorkflowValidationReport", version: int
+) -> None:
     """Validate the nodes array."""
     nodes = data.get("nodes")
 
     if nodes is None:
         report.add_result(
             SchemaValidationResult(
-                valid=False, field="nodes", message="Missing required 'nodes' field", severity="error"
+                valid=False,
+                field="nodes",
+                message="Missing required 'nodes' field",
+                severity="error",
             )
         )
         return
@@ -56,7 +61,9 @@ def validate_nodes(data: dict[str, Any], report: "WorkflowValidationReport", ver
         validate_single_node(node, i, node_ids, report)
 
 
-def validate_single_node(node: Any, index: int, node_ids: set[Any], report: "WorkflowValidationReport") -> None:
+def validate_single_node(
+    node: Any, index: int, node_ids: set[Any], report: "WorkflowValidationReport"
+) -> None:
     """Validate a single node object."""
     if not isinstance(node, dict):
         report.add_result(
@@ -178,7 +185,11 @@ def validate_output_slot_links(
     if origin_id not in nodes_by_id:
         return
     outputs = nodes_by_id[origin_id].get("outputs", [])
-    if not isinstance(outputs, list) or origin_slot is None or origin_slot >= len(outputs):
+    if (
+        not isinstance(outputs, list)
+        or origin_slot is None
+        or origin_slot >= len(outputs)
+    ):
         return
     output = outputs[origin_slot]
     if not isinstance(output, dict):
@@ -213,7 +224,11 @@ def validate_input_slot_link(
     if target_id not in nodes_by_id:
         return
     inputs = nodes_by_id[target_id].get("inputs", [])
-    if not isinstance(inputs, list) or target_slot is None or target_slot >= len(inputs):
+    if (
+        not isinstance(inputs, list)
+        or target_slot is None
+        or target_slot >= len(inputs)
+    ):
         return
     inp = inputs[target_slot]
     if not isinstance(inp, dict):
@@ -237,7 +252,9 @@ def validate_input_slot_link(
         )
 
 
-def validate_node_link_consistency(data: dict[str, Any], report: "WorkflowValidationReport", version: int) -> None:
+def validate_node_link_consistency(
+    data: dict[str, Any], report: "WorkflowValidationReport", version: int
+) -> None:
     """Validate that links reference valid node IDs and node outputs/inputs reference valid links."""
     nodes = data.get("nodes", [])
     links = data.get("links", [])
@@ -251,5 +268,9 @@ def validate_node_link_consistency(data: dict[str, Any], report: "WorkflowValida
     validate_link_node_references(link_info, nodes_by_id, report)
 
     for link_id, info in link_info.items():
-        validate_output_slot_links(link_id, info["origin_id"], info["origin_slot"], nodes_by_id, report)
-        validate_input_slot_link(link_id, info["target_id"], info["target_slot"], nodes_by_id, report)
+        validate_output_slot_links(
+            link_id, info["origin_id"], info["origin_slot"], nodes_by_id, report
+        )
+        validate_input_slot_link(
+            link_id, info["target_id"], info["target_slot"], nodes_by_id, report
+        )

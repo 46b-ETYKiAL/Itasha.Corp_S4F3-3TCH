@@ -61,7 +61,9 @@ class ValidationResult:
         self.warnings.append(msg)
 
 
-def _load_module_from_source(source: str, module_name: str = "test_node") -> types.ModuleType | None:
+def _load_module_from_source(
+    source: str, module_name: str = "test_node"
+) -> types.ModuleType | None:
     """Load a Python module from source string.
 
     Args:
@@ -71,7 +73,9 @@ def _load_module_from_source(source: str, module_name: str = "test_node") -> typ
     Returns:
         Loaded module or None if import failed.
     """
-    with tempfile.NamedTemporaryFile(suffix=".py", mode="w", delete=False, encoding="utf-8") as tmp:
+    with tempfile.NamedTemporaryFile(
+        suffix=".py", mode="w", delete=False, encoding="utf-8"
+    ) as tmp:
         tmp.write(source)
         tmp.flush()
         tmp_path = Path(tmp.name)
@@ -193,7 +197,9 @@ def check_types(node_class: type) -> tuple[bool, list[str]]:
                         continue
                     for param_name, param_def in section.items():
                         if not isinstance(param_def, tuple) or len(param_def) < 2:
-                            errors.append(f"Input '{param_name}' must be a tuple of (type_str, config_dict)")
+                            errors.append(
+                                f"Input '{param_name}' must be a tuple of (type_str, config_dict)"
+                            )
         except Exception as exc:
             errors.append(f"INPUT_TYPES() raised: {exc}")
 
@@ -232,7 +238,9 @@ def check_widgets(node_class: type) -> tuple[bool, list[str]]:
                 if isinstance(param_def, tuple) and len(param_def) >= 1:
                     type_str = param_def[0]
                     if type_str not in VALID_COMFYUI_TYPES:
-                        errors.append(f"Unknown widget type '{type_str}' for input '{param_name}'")
+                        errors.append(
+                            f"Unknown widget type '{type_str}' for input '{param_name}'"
+                        )
     except Exception as exc:
         errors.append(f"Error checking widgets: {exc}")
 
@@ -270,7 +278,9 @@ def check_execution(node_class: type, spec: NodeSpec | None = None) -> tuple[boo
         # Verify result is a tuple matching RETURN_TYPES length
         return_types = getattr(node_class, "RETURN_TYPES", ())
         if isinstance(result, tuple) and len(result) != len(return_types):
-            return False, (f"Return tuple length {len(result)} != RETURN_TYPES length {len(return_types)}")
+            return False, (
+                f"Return tuple length {len(result)} != RETURN_TYPES length {len(return_types)}"
+            )
         return True, ""
     except Exception as exc:
         return False, f"Execution error: {exc}"

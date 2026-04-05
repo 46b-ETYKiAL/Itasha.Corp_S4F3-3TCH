@@ -71,7 +71,9 @@ class WorkflowTemplate:
         if not self.name or not self.name.strip():
             errors.append("Template name must not be empty.")
         if self.category not in VALID_CATEGORIES:
-            errors.append(f"Invalid category '{self.category}'. Must be one of: {sorted(VALID_CATEGORIES)}")
+            errors.append(
+                f"Invalid category '{self.category}'. Must be one of: {sorted(VALID_CATEGORIES)}"
+            )
         if not isinstance(self.workflow, dict) or not self.workflow:
             errors.append("Workflow must be a non-empty dict.")
         return errors
@@ -208,7 +210,9 @@ class TemplateManager:
             raise KeyError(msg)
 
         export_data = self._template_to_dict(template)
-        export_data["workflow"] = self._strip_absolute_paths(copy.deepcopy(template.workflow))
+        export_data["workflow"] = self._strip_absolute_paths(
+            copy.deepcopy(template.workflow)
+        )
 
         out = Path(output_path)
         out.parent.mkdir(parents=True, exist_ok=True)
@@ -360,7 +364,10 @@ class TemplateManager:
 
             return _VARIABLE_PATTERN.sub(_replacer, obj)
         if isinstance(obj, dict):
-            return {k: TemplateManager._substitute_variables(v, variables) for k, v in obj.items()}
+            return {
+                k: TemplateManager._substitute_variables(v, variables)
+                for k, v in obj.items()
+            }
         if isinstance(obj, list):
             return [TemplateManager._substitute_variables(v, variables) for v in obj]
         return obj

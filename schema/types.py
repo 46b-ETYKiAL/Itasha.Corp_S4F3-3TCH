@@ -16,7 +16,9 @@ from dataclasses import dataclass, field
 from typing import Any
 
 # UUID pattern for validation
-UUID_PATTERN = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", re.IGNORECASE)
+UUID_PATTERN = re.compile(
+    r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", re.IGNORECASE
+)
 
 
 def generate_uuid() -> str:
@@ -83,8 +85,14 @@ class WorkflowValidationReport:
             "detected_version": self.detected_version,
             "error_count": self.error_count,
             "warning_count": self.warning_count,
-            "errors": [{"field": e.field, "message": e.message, "details": e.details} for e in self.errors],
-            "warnings": [{"field": w.field, "message": w.message, "details": w.details} for w in self.warnings],
+            "errors": [
+                {"field": e.field, "message": e.message, "details": e.details}
+                for e in self.errors
+            ],
+            "warnings": [
+                {"field": w.field, "message": w.message, "details": w.details}
+                for w in self.warnings
+            ],
         }
 
 

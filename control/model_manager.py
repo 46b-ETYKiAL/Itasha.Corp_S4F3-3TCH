@@ -214,7 +214,9 @@ class ModelManager:
         dest = self._dir / output_name
 
         self._write_safetensors_with_header(src, dest, header, header_size)
-        logger.info("Converted '%s' → '%s' (target: %s)", src.name, dest.name, target_dtype)
+        logger.info(
+            "Converted '%s' → '%s' (target: %s)", src.name, dest.name, target_dtype
+        )
         return str(dest)
 
     def merge_models(
@@ -353,7 +355,9 @@ class ModelManager:
             return None, 0
 
     @staticmethod
-    def _write_safetensors_with_header(src: Path, dest: Path, header: dict[str, Any], old_header_size: int) -> None:
+    def _write_safetensors_with_header(
+        src: Path, dest: Path, header: dict[str, Any], old_header_size: int
+    ) -> None:
         """Rewrite a safetensors file with a modified header."""
         new_header_bytes = json.dumps(header, ensure_ascii=False).encode("utf-8")
         new_header_size = len(new_header_bytes)

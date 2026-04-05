@@ -18,9 +18,15 @@ logger = logging.getLogger(__name__)
 # GPU architecture detection patterns (NVIDIA)
 _ARCH_PATTERNS: list[tuple[re.Pattern[str], str]] = [
     (re.compile(r"RTX\s*50[789]0|RTX\s*5060|Blackwell", re.IGNORECASE), "blackwell"),
-    (re.compile(r"RTX\s*40[789]0|RTX\s*4060|Ada|L40|L4", re.IGNORECASE), "ada_lovelace"),
+    (
+        re.compile(r"RTX\s*40[789]0|RTX\s*4060|Ada|L40|L4", re.IGNORECASE),
+        "ada_lovelace",
+    ),
     (re.compile(r"H100|H200|GH200|Hopper", re.IGNORECASE), "hopper"),
-    (re.compile(r"RTX\s*30[789]0|RTX\s*3060|RTX\s*A[456]000|Ampere", re.IGNORECASE), "ampere"),
+    (
+        re.compile(r"RTX\s*30[789]0|RTX\s*3060|RTX\s*A[456]000|Ampere", re.IGNORECASE),
+        "ampere",
+    ),
     (re.compile(r"RTX\s*20[789]0|RTX\s*2060|Turing|T4", re.IGNORECASE), "turing"),
     (re.compile(r"GTX\s*10[789]0|GTX\s*1060|Pascal|P100|P40", re.IGNORECASE), "pascal"),
     (re.compile(r"V100|Volta", re.IGNORECASE), "volta"),
@@ -105,7 +111,9 @@ class PerformanceTuner:
 
         # Determine architecture from GPU name
         if info.name != "unknown" and not info.architecture:
-            info = dataclasses.replace(info, architecture=_detect_architecture(info.name))
+            info = dataclasses.replace(
+                info, architecture=_detect_architecture(info.name)
+            )
 
         return info
 
@@ -270,9 +278,13 @@ class PerformanceTuner:
                     shell=False,
                 )
                 if full_result.returncode == 0:
-                    cuda_match = re.search(r"CUDA Version:\s*([\d.]+)", full_result.stdout)
+                    cuda_match = re.search(
+                        r"CUDA Version:\s*([\d.]+)", full_result.stdout
+                    )
                     if cuda_match:
-                        info = dataclasses.replace(info, cuda_version=cuda_match.group(1))
+                        info = dataclasses.replace(
+                            info, cuda_version=cuda_match.group(1)
+                        )
         except (FileNotFoundError, subprocess.TimeoutExpired, OSError):
             pass
 
@@ -299,7 +311,9 @@ class PerformanceTuner:
                     total = torch.cuda.get_device_properties(0).total_mem
                     info = dataclasses.replace(info, vram_mb=int(total / (1024 * 1024)))
                 if not info.cuda_version:
-                    info = dataclasses.replace(info, cuda_version=torch.version.cuda or "")
+                    info = dataclasses.replace(
+                        info, cuda_version=torch.version.cuda or ""
+                    )
         except ImportError:
             logger.debug("PyTorch not available for GPU detection")
         except Exception:

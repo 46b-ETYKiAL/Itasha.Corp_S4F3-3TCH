@@ -106,4 +106,6 @@ def generate_optimized(
         ComfyUI API-format workflow dict with enhanced prompt.
     """
     enhanced = _enhance_prompt(prompt, model, style=style)
-    return _builder.build_txt2img(enhanced, model, width, height, seed=seed, **overrides)
+    return _builder.build_txt2img(
+        enhanced, model, width, height, seed=seed, **overrides
+    )

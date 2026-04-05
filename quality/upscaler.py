@@ -56,7 +56,9 @@ def select_upscaler(content_type: str, scale: int = 4) -> str:
         ValueError: If ``scale`` is not 2 or 4.
     """
     if scale not in VALID_SCALE_FACTORS:
-        raise ValueError(f"Unsupported scale factor {scale}. Must be one of {VALID_SCALE_FACTORS}.")
+        raise ValueError(
+            f"Unsupported scale factor {scale}. Must be one of {VALID_SCALE_FACTORS}."
+        )
 
     if _is_anime_content(content_type):
         return ANIME_UPSCALERS[0]

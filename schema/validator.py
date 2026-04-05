@@ -94,7 +94,10 @@ class ComfyUIWorkflowValidator:
             report.valid = False
             report.add_result(
                 SchemaValidationResult(
-                    valid=False, field="file", message=f"File not found: {file_path}", severity="error"
+                    valid=False,
+                    field="file",
+                    message=f"File not found: {file_path}",
+                    severity="error",
                 )
             )
             return report
@@ -105,13 +108,20 @@ class ComfyUIWorkflowValidator:
         except json.JSONDecodeError as e:
             report.valid = False
             report.add_result(
-                SchemaValidationResult(valid=False, field="json", message=f"Invalid JSON: {e}", severity="error")
+                SchemaValidationResult(
+                    valid=False,
+                    field="json",
+                    message=f"Invalid JSON: {e}",
+                    severity="error",
+                )
             )
             return report
 
         return self.validate_dict(data, str(file_path))
 
-    def validate_dict(self, data: dict[str, Any], source: str = "workflow") -> WorkflowValidationReport:
+    def validate_dict(
+        self, data: dict[str, Any], source: str = "workflow"
+    ) -> WorkflowValidationReport:
         """
         Validate a workflow dictionary.
 
@@ -129,7 +139,9 @@ class ComfyUIWorkflowValidator:
         report.detected_version = detected_version
 
         # Use target version if specified, otherwise use detected
-        version = self.target_version if self.target_version is not None else detected_version
+        version = (
+            self.target_version if self.target_version is not None else detected_version
+        )
 
         report.add_result(
             SchemaValidationResult(
@@ -157,15 +169,21 @@ class ComfyUIWorkflowValidator:
         return report
 
     # Backward compatibility methods - delegate to extracted functions
-    def _validate_v1(self, data: dict[str, Any], report: WorkflowValidationReport) -> None:
+    def _validate_v1(
+        self, data: dict[str, Any], report: WorkflowValidationReport
+    ) -> None:
         """Validate Version 1 specific requirements."""
         validate_v1(data, report)
 
-    def _validate_v0(self, data: dict[str, Any], report: WorkflowValidationReport) -> None:
+    def _validate_v0(
+        self, data: dict[str, Any], report: WorkflowValidationReport
+    ) -> None:
         """Validate Version 0 specific requirements."""
         validate_v0(data, report)
 
-    def _validate_nodes(self, data: dict[str, Any], report: WorkflowValidationReport, version: int) -> None:
+    def _validate_nodes(
+        self, data: dict[str, Any], report: WorkflowValidationReport, version: int
+    ) -> None:
         """Validate the nodes array."""
         validate_nodes(data, report, version)
 
@@ -193,7 +211,9 @@ def validate_workflow_file(
     Returns:
         WorkflowValidationReport with validation results
     """
-    validator = ComfyUIWorkflowValidator(strict_mode=strict, target_version=target_version)
+    validator = ComfyUIWorkflowValidator(
+        strict_mode=strict, target_version=target_version
+    )
     return validator.validate_file(file_path)
 
 
@@ -211,5 +231,7 @@ def validate_workflow_dict(
     Returns:
         WorkflowValidationReport with validation results
     """
-    validator = ComfyUIWorkflowValidator(strict_mode=strict, target_version=target_version)
+    validator = ComfyUIWorkflowValidator(
+        strict_mode=strict, target_version=target_version
+    )
     return validator.validate_dict(data)

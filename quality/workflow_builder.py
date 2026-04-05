@@ -539,7 +539,9 @@ def _apply_overrides(preset: QualityPreset, overrides: dict[str, Any]) -> Qualit
     """
     if not overrides:
         return preset
-    fields = {f.name: getattr(preset, f.name) for f in preset.__dataclass_fields__.values()}
+    fields = {
+        f.name: getattr(preset, f.name) for f in preset.__dataclass_fields__.values()
+    }
     for key, value in overrides.items():
         if key in fields:
             fields[key] = value

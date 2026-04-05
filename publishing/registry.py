@@ -110,7 +110,9 @@ class RegistryMetadataGenerator:
             errors.append("author is required")
 
         if entry.install_type not in _VALID_INSTALL_TYPES:
-            errors.append(f"install_type must be one of {sorted(_VALID_INSTALL_TYPES)}, got: {entry.install_type}")
+            errors.append(
+                f"install_type must be one of {sorted(_VALID_INSTALL_TYPES)}, got: {entry.install_type}"
+            )
 
         for tag in entry.tags:
             if not tag or len(tag) > 50:

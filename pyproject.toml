@@ -12,3 +12,6 @@ dependencies = [
     "pydantic==2.11.3",
     "jinja2==3.1.6",
 ]
+
+[tool.hatch.build.targets.wheel]
+packages = ["authoring", "control", "publishing", "quality", "schema", "workflows"]

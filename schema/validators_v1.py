@@ -142,7 +142,10 @@ def validate_v1_links(data: dict[str, Any], report: WorkflowValidationReport) ->
     if links is None:
         report.add_result(
             SchemaValidationResult(
-                valid=False, field="links", message="Missing required 'links' field", severity="error"
+                valid=False,
+                field="links",
+                message="Missing required 'links' field",
+                severity="error",
             )
         )
         return
@@ -189,7 +192,14 @@ def validate_v1_links(data: dict[str, Any], report: WorkflowValidationReport) ->
             continue
 
         # Validate required link object fields
-        required_fields = ["id", "origin_id", "origin_slot", "target_id", "target_slot", "type"]
+        required_fields = [
+            "id",
+            "origin_id",
+            "origin_slot",
+            "target_id",
+            "target_slot",
+            "type",
+        ]
         for field_name in required_fields:
             if field_name not in link:
                 report.add_result(
@@ -216,7 +226,9 @@ def validate_v1_links(data: dict[str, Any], report: WorkflowValidationReport) ->
             link_ids.add(link_id)
 
 
-def validate_v1_output_types(data: dict[str, Any], report: WorkflowValidationReport) -> None:
+def validate_v1_output_types(
+    data: dict[str, Any], report: WorkflowValidationReport
+) -> None:
     """Validate output types in workflow nodes against known types.
 
     Accepts VIDEO, AUDIO, and other extended types added for V3
@@ -241,14 +253,18 @@ def validate_v1_output_types(data: dict[str, Any], report: WorkflowValidationRep
                     SchemaValidationResult(
                         valid=True,
                         field=f"nodes[{i}].outputs[{j}].type",
-                        message=(f"Unknown output type '{output_type}'. Known types: {sorted(KNOWN_OUTPUT_TYPES)}"),
+                        message=(
+                            f"Unknown output type '{output_type}'. Known types: {sorted(KNOWN_OUTPUT_TYPES)}"
+                        ),
                         severity="warning",
                         details={"output_type": output_type},
                     )
                 )
 
 
-def validate_v1_v3_metadata(data: dict[str, Any], report: WorkflowValidationReport) -> None:
+def validate_v1_v3_metadata(
+    data: dict[str, Any], report: WorkflowValidationReport
+) -> None:
     """Parse and validate V3 node metadata (informational).
 
     V3 metadata fields (api_version, caching_policy) are parsed
@@ -270,7 +286,10 @@ def validate_v1_v3_metadata(data: dict[str, Any], report: WorkflowValidationRepo
                     field=f"nodes[{i}].properties.api_version",
                     message=f"V3 node detected (api_version={meta.api_version})",
                     severity="info",
-                    details={"api_version": meta.api_version, "caching_policy": meta.caching_policy},
+                    details={
+                        "api_version": meta.api_version,
+                        "caching_policy": meta.caching_policy,
+                    },
                 )
             )
             if meta.caching_policy not in valid_caching:
@@ -278,13 +297,17 @@ def validate_v1_v3_metadata(data: dict[str, Any], report: WorkflowValidationRepo
                     SchemaValidationResult(
                         valid=True,
                         field=f"nodes[{i}].properties.caching_policy",
-                        message=(f"Unknown caching policy '{meta.caching_policy}'. Valid: {sorted(valid_caching)}"),
+                        message=(
+                            f"Unknown caching policy '{meta.caching_policy}'. Valid: {sorted(valid_caching)}"
+                        ),
                         severity="warning",
                     )
                 )
 
 
-def validate_v1_gguf_references(data: dict[str, Any], report: WorkflowValidationReport) -> None:
+def validate_v1_gguf_references(
+    data: dict[str, Any], report: WorkflowValidationReport
+) -> None:
     """Detect GGUF model references in workflow nodes (informational).
 
     GGUF models require the ComfyUI-GGUF extension.  This validator

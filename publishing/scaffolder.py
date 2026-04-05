@@ -256,7 +256,9 @@ class PackageScaffolder:
         """
         imports = ", ".join(node_classes)
         class_mappings = ", ".join(f'"{cls}": {cls}' for cls in node_classes)
-        display_mappings = ", ".join(f'"{cls}": "{_sanitize_class_name(cls)}"' for cls in node_classes)
+        display_mappings = ", ".join(
+            f'"{cls}": "{_sanitize_class_name(cls)}"' for cls in node_classes
+        )
 
         return textwrap.dedent(f"""\
             \"\"\"ComfyUI custom node package.\"\"\"

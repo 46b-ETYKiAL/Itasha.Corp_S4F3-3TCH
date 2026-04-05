@@ -14,7 +14,18 @@ from .types import InputSpec, NodeSpec, WidgetType
 # Semantic groups: parameter name keywords → group label
 _SEMANTIC_GROUPS: dict[str, list[str]] = {
     "dimensions": ["width", "height", "size", "resolution", "scale"],
-    "color": ["color", "hue", "saturation", "brightness", "red", "green", "blue", "alpha", "rgb", "hsv"],
+    "color": [
+        "color",
+        "hue",
+        "saturation",
+        "brightness",
+        "red",
+        "green",
+        "blue",
+        "alpha",
+        "rgb",
+        "hsv",
+    ],
     "position": ["x", "y", "z", "left", "top", "right", "bottom", "offset"],
     "transform": ["rotation", "angle", "rotate", "flip", "mirror", "skew"],
     "filter": ["blur", "sharpen", "denoise", "smooth", "radius", "sigma", "kernel"],
@@ -230,15 +241,21 @@ def generate_vue_stub(node_name: str, groups: list[InputGroup]) -> str:
         for inp in group.inputs:
             widget = inp.widget
             if widget.hidden:
-                inputs_html.append('      <div v-show="showAdvanced" class="input-row">')
+                inputs_html.append(
+                    '      <div v-show="showAdvanced" class="input-row">'
+                )
             else:
                 inputs_html.append('      <div class="input-row">')
             inputs_html.append(f"        <label>{inp.name}</label>")
             # Widget component based on type
             if widget.widget_type == WidgetType.BOOLEAN:
-                inputs_html.append(f'        <toggle-input v-model="values.{inp.name}" />')
+                inputs_html.append(
+                    f'        <toggle-input v-model="values.{inp.name}" />'
+                )
             elif widget.widget_type == WidgetType.COMBO:
-                inputs_html.append(f'        <combo-input v-model="values.{inp.name}" :options="options.{inp.name}" />')
+                inputs_html.append(
+                    f'        <combo-input v-model="values.{inp.name}" :options="options.{inp.name}" />'
+                )
             elif widget.widget_type in (WidgetType.INT, WidgetType.FLOAT):
                 inputs_html.append(
                     f'        <slider-input v-model="values.{inp.name}" '
@@ -250,12 +267,16 @@ def generate_vue_stub(node_name: str, groups: list[InputGroup]) -> str:
                 tag = "textarea-input" if widget.multiline else "text-input"
                 inputs_html.append(f'        <{tag} v-model="values.{inp.name}" />')
             else:
-                inputs_html.append(f"        <!-- slot: {inp.widget.widget_type.value} -->")
+                inputs_html.append(
+                    f"        <!-- slot: {inp.widget.widget_type.value} -->"
+                )
             inputs_html.append("      </div>")
 
         section = (
             f'    <fieldset class="input-group">\n'
-            f"      <legend>{group.label.title()}</legend>\n" + "\n".join(inputs_html) + "\n    </fieldset>"
+            f"      <legend>{group.label.title()}</legend>\n"
+            + "\n".join(inputs_html)
+            + "\n    </fieldset>"
         )
         sections.append(section)
 

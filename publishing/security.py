@@ -119,7 +119,9 @@ class NodeSecurityChecker:
         # Check bad node list
         if self.is_on_bad_list(package_name):
             report.is_safe = False
-            report.blocked_reasons.append(f"Package '{package_name}' is on the known bad-node list")
+            report.blocked_reasons.append(
+                f"Package '{package_name}' is on the known bad-node list"
+            )
 
         # Check repository URL validity
         if repository_url:
@@ -134,7 +136,10 @@ class NodeSecurityChecker:
         cves = await self._query_cves(package_name)
         if cves:
             report.cve_matches.extend(cves)
-            report.warnings.append(f"Found {len(cves)} CVE(s) related to '{package_name}': " + ", ".join(cves))
+            report.warnings.append(
+                f"Found {len(cves)} CVE(s) related to '{package_name}': "
+                + ", ".join(cves)
+            )
 
         return report
 
@@ -236,14 +241,20 @@ def _validate_repository_url(url: str) -> list[str]:
         return warnings
 
     if parsed.scheme not in ("https", "http"):
-        warnings.append(f"Repository URL uses non-HTTP scheme: {parsed.scheme}. HTTPS is recommended.")
+        warnings.append(
+            f"Repository URL uses non-HTTP scheme: {parsed.scheme}. HTTPS is recommended."
+        )
 
     if parsed.scheme == "http":
-        warnings.append("Repository URL uses HTTP instead of HTTPS. Consider using HTTPS for security.")
+        warnings.append(
+            "Repository URL uses HTTP instead of HTTPS. Consider using HTTPS for security."
+        )
 
     known_hosts = {"github.com", "gitlab.com", "bitbucket.org", "codeberg.org"}
     if parsed.hostname and parsed.hostname not in known_hosts:
-        warnings.append(f"Repository hosted on uncommon host: {parsed.hostname}. Verify this is a legitimate source.")
+        warnings.append(
+            f"Repository hosted on uncommon host: {parsed.hostname}. Verify this is a legitimate source."
+        )
 
     return warnings
 
