@@ -1,239 +1,160 @@
-<div align="center">
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/header.svg" />
+    <source media="(prefers-color-scheme: light)" srcset=".github/assets/header.svg" />
+    <img src=".github/assets/header.svg" alt="S4F3-3TCH header banner — precision tooling grid on dark background" />
+  </picture>
+</p>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/header.svg">
-  <img alt="S4F3 3TCH — Open-source ComfyUI custom nodes by Itasha Corp" src=".github/assets/header.svg" width="100%">
-</picture>
+<p align="center">
+  <strong>Open-source ComfyUI custom nodes. Precision tools for precision work.</strong>
+</p>
 
-*Image generation nodes for the network. Every pixel etched with precision.*
+<p align="center">
+  <a href="#what-is-this">About</a> &nbsp;&middot;&nbsp;
+  <a href="#installation">Install</a> &nbsp;&middot;&nbsp;
+  <a href="#quick-start">Quick Start</a> &nbsp;&middot;&nbsp;
+  <a href="#capabilities">Capabilities</a> &nbsp;&middot;&nbsp;
+  <a href="#the-network">Network</a> &nbsp;&middot;&nbsp;
+  <a href="#contributing">Contributing</a>
+</p>
 
-[![Python](https://img.shields.io/badge/python-3.10+-00FFFF.svg?style=flat-square)](https://www.python.org/downloads/)
-[![ComfyUI](https://img.shields.io/badge/ComfyUI-nodes-FF00FF.svg?style=flat-square)](https://github.com/comfyanonymous/ComfyUI)
-[![License](https://img.shields.io/badge/license-Apache_2.0-00FFFF.svg?style=flat-square)](LICENSE)
-[![Workflows](https://img.shields.io/badge/workflows-18_templates-00FFFF.svg?style=flat-square)](#-workflows)
-[![Open Source](https://img.shields.io/badge/open_source-01fe36.svg?style=flat-square)](#-contributing)
-
----
-
-[**MODULES**](#-modules) · [**INSTALL**](#-installation) · [**WORKFLOWS**](#-workflows) · [**ARCHITECTURE**](#-architecture) · [**CONTRIBUTING**](#-contributing)
-
-</div>
-
----
-
-## > Overview
-
-**S4F3 3TCH** is a collection of open-source tools for [ComfyUI](https://github.com/comfyanonymous/ComfyUI) — node authoring, workflow validation, quality optimization, publishing pipelines, and production-ready workflow templates. Built by **Itasha Corp**.
-
-```
-  idea                    3TCH pipeline                    output
-  ┌──────────┐    ┌─────────────────────────────┐    ┌──────────┐
-  │ "blur     │    │  authoring → validation     │    │ blur.py  │
-  │  node,    │───►│  quality   → publishing     │───►│ (ComfyUI │
-  │  0-100"   │    │  schema    → registry       │    │  node)   │
-  └──────────┘    └─────────────────────────────┘    └──────────┘
-```
+<p align="center">
+  <img src="https://img.shields.io/badge/ComfyUI-00fffe?style=flat-square" alt="ComfyUI" />
+  <img src="https://img.shields.io/badge/Python-a020ff?style=flat-square&logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/Apache--2.0-01fe36?style=flat-square" alt="Apache 2.0 License" />
+  <img src="https://img.shields.io/badge/Open_Source-01fe36?style=flat-square" alt="Open Source" />
+</p>
 
 ---
 
-## > Modules
+## What is this?
 
-### Authoring
+3TCH is a set of ComfyUI custom nodes built for structured, repeatable image generation workflows. It covers authoring, publishing, control, quality, and schema modules — the parts of a production pipeline that need to work the same way every time.
 
-Generate ComfyUI custom nodes from natural language specifications.
+The package includes 18 production workflow templates. Each one has been validated against real workloads. Pydantic handles the data validation. Jinja2 handles the templating. The nodes handle everything in between.
 
-```python
-from authoring.types import NodeSpec
-from authoring.generator import generate_node
+Good tools don't call attention to themselves. They just work when you reach for them.
 
-# Describe your node in plain English
-spec = NodeSpec.from_natural_language("takes an image and a blur strength (0-100), outputs blurred image")
-code = generate_node(spec)  # Produces valid ComfyUI node Python
-```
+## Installation
 
-| Feature | Description |
-|---------|-------------|
-| Natural language parser | Describe nodes in English, get Pydantic specs |
-| Code generator | Jinja2 templates for V1 (legacy) and V3 (stateless) formats |
-| Composite nodes | Combine multiple operations into single nodes |
-| Layout optimizer | UI layout for node input/output positioning |
-| Test harness | Validate generated nodes with dynamic import testing |
-| Security scanner | AST-based blocking of dangerous patterns (eval, os.system) |
-
-### Publishing
-
-Package, validate, and publish custom nodes to the ComfyUI ecosystem.
-
-| Feature | Description |
-|---------|-------------|
-| Scaffolder | Generate project structure for new node packages |
-| Registry | ComfyUI Manager registry entry generation and validation |
-| Versioning | Semantic versioning with changelog generation |
-| Security | Security validation for published nodes |
-
-Supports both legacy ComfyUI Manager format and the new Comfy Registry.
-
-### Control
-
-High-level API for ComfyUI server and model management.
-
-| Feature | Description |
-|---------|-------------|
-| Model manager | Listing, architecture detection, merging, checksums |
-| Batch processing | Parameter sweeps, seed sweeping, concurrent queue |
-| Server lifecycle | Start/stop/restart/health monitoring |
-| Performance | Optimization utilities and benchmarking |
-| Quantization | Model quantization for VRAM optimization |
-| Templates | Workflow template CRUD with variable rendering |
-
-### Quality
-
-Image quality optimization and prompt enhancement.
-
-| Feature | Description |
-|---------|-------------|
-| Prompt enhancer | Optimize prompts for better generation results |
-| Upscaler | Image upscaling with model-aware settings |
-| Presets | Quality presets for different output targets |
-| Workflow builder | High-level workflow construction API |
-
-### Schema
-
-ComfyUI workflow JSON validation and format conversion.
-
-| Feature | Description |
-|---------|-------------|
-| Validator | Schema validation for V0 and V1 workflow formats |
-| Converters | Format conversion between workflow versions |
-| CLI | Command-line validation tool |
+### Option A: Clone into ComfyUI custom nodes
 
 ```bash
-python -m schema.cli validate workflow.json
+cd ComfyUI/custom_nodes
+git clone https://github.com/46b-ETYKiAL/S4F3-3TCH.git
+cd S4F3-3TCH
+pip install -r requirements.txt
 ```
 
----
-
-## > Workflows
-
-Production-tested workflow templates ready for use:
-
-| Workflow | Description |
-|----------|-------------|
-| `txt2img.json` | Text-to-image base template |
-| `flux-txt2img.json` | Flux model text-to-image |
-| `flux2-txt2img.json` | Flux 2 text-to-image |
-| `flux-controlnet-union.json` | Flux + ControlNet union |
-| `flux-pulid.json` | Flux + PuLID face transfer |
-| `ip-adapter-style.json` | IP-Adapter style transfer |
-| `4x-upscale.json` | 4x image upscaling |
-| `character-consistency.json` | Consistent character generation |
-| `brand-character-base.json` | Brand character templates |
-| `brand-badge-generator.json` | Badge and asset generation |
-| `controlnet-pose.json` | ControlNet pose guidance |
-| `manga-page-batch.json` | Manga page batch generation |
-| `manga-panel-single.json` | Single manga panel |
-| `sticker-batch.json` | Batch sticker production |
-| `marketing-hero.json` | Marketing hero images |
-| `sdxl-optimized-txt2img.json` | Optimized SDXL pipeline |
-
----
-
-## > Installation
+### Option B: pip install
 
 ```bash
-git clone https://github.com/46b-ETYKiAL/Itasha.Corp_S4F3-3TCH.git
-cd Itasha.Corp_S4F3-3TCH
-pip install -e .
+pip install s4f3-3tch
 ```
 
-### Dependencies
+Then restart ComfyUI. The nodes will appear in the node menu under the S4F3 category.
+
+## Quick Start
+
+After installation, the custom nodes are available in ComfyUI's node browser. A basic workflow:
+
+1. Open ComfyUI
+2. Search for **S4F3** in the node menu
+3. Add an authoring node to your workflow
+4. Connect it to your generation pipeline
+5. Use a schema node to validate inputs before execution
+
+For production use, start with one of the 18 included workflow templates:
 
 ```bash
-pip install pydantic jinja2
+# Copy a template to your ComfyUI workflows directory
+cp templates/production/*.json ~/ComfyUI/user/workflows/
 ```
 
-Each module can also be used standalone — just copy the directory you need.
-
----
-
-## > Architecture
-
 ```
-s4f3-etch/
-├── authoring/              # Node generation from specs
-│   ├── types.py            # NodeSpec, InputSpec, WidgetType
-│   ├── generator.py        # Jinja2 code generation
-│   ├── composite.py        # Multi-op node composition
-│   └── test_harness.py     # Dynamic import validation
-├── publishing/             # Package and publish nodes
-│   ├── scaffolder.py       # Project structure generation
-│   ├── registry.py         # ComfyUI Manager integration
-│   └── versioning.py       # Semver + changelogs
-├── control/                # Server and model management
-│   ├── model_manager.py    # Model ops (list, merge, quantize)
-│   ├── batch.py            # Concurrent batch generation
-│   └── server_lifecycle.py # ComfyUI server control
-├── quality/                # Output optimization
-│   ├── prompt_enhancer.py  # Prompt refinement
-│   └── upscaler.py         # Image upscaling
-├── schema/                 # Workflow validation
-│   ├── validator.py        # V0/V1 schema validation
-│   ├── converters.py       # Format conversion
-│   └── cli.py              # Command-line interface
-├── workflows/              # Production JSON templates
-│   ├── txt2img.json
-│   ├── flux-txt2img.json
-│   └── ...                 # 18 templates total
-├── pyproject.toml
-└── LICENSE                 # Apache 2.0
+┌──────────────────────────────────────────┐
+│  SYSTEM NOTICE                           │
+│  ──────────────────────────────────────  │
+│  NODE TYPE : PUBLIC_NODE                 │
+│  STATUS    : ACTIVE                      │
+│  MODULES   : 5                           │
+└──────────────────────────────────────────┘
 ```
 
----
+## Capabilities
 
-## > Contributing
+- **Authoring nodes** — structured content creation with validated inputs
+- **Publishing nodes** — output formatting, metadata embedding, and export
+- **Control nodes** — workflow branching, conditional execution, and parameter gating
+- **Quality nodes** — output validation, consistency checks, and scoring
+- **Schema nodes** — Pydantic-based input validation and type enforcement
+- **18 workflow templates** — production-ready pipelines for common generation tasks
+- **Jinja2 templating** — dynamic prompt construction with variable substitution
 
-Contributions welcome. Please:
+<details>
+<summary><strong>Technical Context</strong></summary>
 
-1. Fork the repository
-2. Create a feature branch (`feat/your-feature`)
-3. Write tests for new functionality
-4. Ensure all existing tests pass
-5. Submit a PR with a clear description
+3TCH nodes are organized into five modules, each covering a distinct phase of the image generation pipeline. The authoring module handles prompt construction and parameter setup. Publishing manages output formatting and delivery. Control provides workflow logic. Quality validates results. Schema enforces data contracts.
 
-### Development
+All node inputs are validated through Pydantic models before execution. This catches configuration errors at the node level rather than mid-pipeline. Jinja2 templates allow dynamic prompt construction with variables, conditionals, and loops.
 
-```bash
-git clone https://github.com/46b-ETYKiAL/Itasha.Corp_S4F3-3TCH.git
-cd Itasha.Corp_S4F3-3TCH
-pip install -e ".[dev]"
+The 18 workflow templates represent tested production configurations covering portrait generation, batch processing, style transfer, upscaling pipelines, and multi-pass refinement workflows.
+
+</details>
+
+## The Network
+
+| Node | Role |
+|------|------|
+| [S4F3-R0UT3-4RB1T3R](https://github.com/46b-ETYKiAL/S4F3-R0UT3-4RB1T3R) | Central orchestration |
+| [S4F3-R3L4Y](https://github.com/46b-ETYKiAL/S4F3-R3L4Y) | MCP server infrastructure |
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Platform | ComfyUI |
+| Language | Python |
+| Validation | Pydantic |
+| Templating | Jinja2 |
+| License | Apache 2.0 |
+
+## Status
+
+<img src="https://img.shields.io/github/last-commit/46b-ETYKiAL/S4F3-3TCH?style=flat-square&color=00fffe" alt="Last commit timestamp for S4F3-3TCH" />
+
+> [!TIP]
+> This project is open source under the Apache 2.0 license. Contributions welcome.
+
+## Contributing
+
+Contributions are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on submitting issues, feature requests, and pull requests.
+
+## License
+
+Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for the full text.
+
+```
+Copyright 2026 Itasha Corp
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 ```
 
----
-
-## > Related
-
-| Repo | Description |
-|------|-------------|
-| [S4F3 R0UT3 4RB1T3R](https://github.com/46b-ETYKiAL/Itasha.Corp_S4F3-R0UT3-4RB1T3R) | Multi-agent orchestration system |
-| [S4F3 R3L4Y](https://github.com/46b-ETYKiAL/Itasha.Corp_S4F3-R3L4Y) | Open-source MCP servers |
-| [S4F3 SH3LL](https://github.com/46b-ETYKiAL/Itasha.Corp_S4F3-SH3LL) | AI coding CLI |
-
----
-
-## > License
-
-[Apache License 2.0](LICENSE) — Itasha Corp, 2026.
-
-<div align="center">
-
-```
-  ┌──────────────────────────────────────────┐
-  │                                          │
-  │   every pixel etched with precision.     │
-  │                                          │
-  │   ░░░ operator23a is watching ░░░        │
-  │                                          │
-  └──────────────────────────────────────────┘
-```
-
-</div>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/footer.svg" />
+    <source media="(prefers-color-scheme: light)" srcset=".github/assets/footer.svg" />
+    <img src=".github/assets/footer.svg" alt="S4F3-3TCH footer — precision grid pattern fading on dark background" />
+  </picture>
+</p>
