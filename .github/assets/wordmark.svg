@@ -1,0 +1,38 @@
+<!-- Itasha Corp wordmark — 720×180 — CRT-IC v3 -->
+<!-- 3TCH in the brand terminal-mono type, accent primary with -->
+<!-- #d4abf8 chromatic-aberration offset, over void black with -->
+<!-- scanlines + a blinking cursor block. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 180" width="720" height="180" role="img" aria-label="3TCH wordmark">
+  <title>3TCH</title>
+  <desc>comfyui etch graph</desc>
+  <defs>
+    <pattern id="wm-scan" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="4" height="4" fill="#070a0c"/><rect width="4" height="1" y="0" fill="#f0eef5" opacity="0.04"/>
+    </pattern>
+    <filter id="wm-glow"><feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <style>@media (prefers-reduced-motion: reduce) { * { animation: none !important; } }</style>
+
+  <rect width="720" height="180" rx="10" fill="#070a0c"/>
+  <rect width="720" height="180" rx="10" fill="url(#wm-scan)"/>
+
+  <!-- thin frame ticks -->
+  <g stroke="#c084f5" stroke-width="2" opacity="0.5">
+    <line x1="16" y1="16" x2="40" y2="16"/><line x1="16" y1="16" x2="16" y2="40"/>
+    <line x1="704" y1="164" x2="680" y2="164"/><line x1="704" y1="164" x2="704" y2="140"/>
+  </g>
+
+  <!-- wordmark with chromatic-aberration shadow -->
+  <g font-family="'JetBrains Mono','Courier New','DejaVu Sans Mono',monospace" font-size="62" font-weight="700" letter-spacing="4" text-anchor="middle">
+    <text x="356" y="106" fill="#d4abf8" opacity="0.75">3TCH</text>
+    <text x="360" y="103" fill="#c084f5" filter="url(#wm-glow)">3TCH</text>
+  </g>
+
+  <!-- subtitle -->
+  <text x="360" y="146" text-anchor="middle" font-family="'JetBrains Mono','SF Mono',Consolas,monospace" font-size="13" letter-spacing="3" fill="#5a6b73">comfyui etch graph</text>
+
+  <!-- blinking cursor block at right -->
+  <rect x="664" y="74" width="32" height="44" fill="#c084f5">
+    <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.5;1" dur="1.1s" repeatCount="indefinite"/>
+  </rect>
+</svg>

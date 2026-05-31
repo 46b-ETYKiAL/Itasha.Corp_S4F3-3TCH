@@ -1,0 +1,68 @@
+<!-- Itasha Corp logomark — 512×512 — CRT-IC v3 daemon-seal monogram -->
+<!-- Sigil only (no CRT plate): the summoning seal — containment ring + -->
+<!-- graticule + kanji band + 5 bind-runes + M-14 -10 L-6 -10 L-6 -2 L-14 -2 Z M-2 4 L6 4 L6 12 L-2 12 Z M10 -10 L16 -10 L16 -2 L10 -2 Z M-6 -6 L13 -6 L13 -2 M2 -2 L2 4 core glyph — as a -->
+<!-- standalone accent-on-transparent mark. Quieter than the app-icon plate. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="3TCH logomark">
+  <title>3TCH logomark — daemon seal</title>
+  <defs>
+    <filter id="lm-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur in="SourceGraphic" stdDeviation="1.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <path id="lm-ringOuter" d="M 0 -150 A 150 150 0 1 1 -0.05 -150" fill="none"/>
+    <path id="lm-ringInner" d="M 0 -88 A 88 88 0 1 1 -0.05 -88" fill="none"/>
+  </defs>
+  <style>@media (prefers-reduced-motion: reduce) { * { animation: none !important; } }</style>
+
+  <g transform="translate(256,256)">
+    <!-- faint kamea grid -->
+    <g stroke="#c084f5" stroke-width="1" opacity="0.16">
+      <line x1="-48" y1="-48" x2="48" y2="-48"/><line x1="-48" y1="-16" x2="48" y2="-16"/>
+      <line x1="-48" y1="16" x2="48" y2="16"/><line x1="-48" y1="48" x2="48" y2="48"/>
+      <line x1="-48" y1="-48" x2="-48" y2="48"/><line x1="-16" y1="-48" x2="-16" y2="48"/>
+      <line x1="16" y1="-48" x2="16" y2="48"/><line x1="48" y1="-48" x2="48" y2="48"/>
+    </g>
+    <!-- outer kanji band -->
+    <g>
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="72s" repeatCount="indefinite"/>
+      <circle r="150" stroke="#c084f5" stroke-width="1" fill="none" opacity="0.4"/>
+      <text font-size="23" fill="#c084f5" opacity="0.82" letter-spacing="5" font-family="'Noto Sans JP','Yu Gothic','Hiragino Sans',sans-serif">
+        <textPath href="#lm-ringOuter" startOffset="3%">腐刻 · 3TCH · 腐刻 ·</textPath>
+      </text>
+    </g>
+    <!-- containment ring + graticule -->
+    <g stroke="#c084f5" fill="none">
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="60s" repeatCount="indefinite"/>
+      <circle r="124" stroke-width="3" opacity="0.95"/>
+      <circle r="115" stroke-width="1.8" opacity="0.72"/>
+      <g stroke-width="2.2" opacity="0.85">
+        <line x1="0" y1="-124" x2="0" y2="-115"/><line x1="62" y1="-107.4" x2="57.5" y2="-99.6"/>
+        <line x1="107.4" y1="-62" x2="99.6" y2="-57.5"/><line x1="124" y1="0" x2="115" y2="0"/>
+        <line x1="107.4" y1="62" x2="99.6" y2="57.5"/><line x1="62" y1="107.4" x2="57.5" y2="99.6"/>
+        <line x1="0" y1="124" x2="0" y2="115"/><line x1="-62" y1="107.4" x2="-57.5" y2="99.6"/>
+        <line x1="-107.4" y1="62" x2="-99.6" y2="57.5"/><line x1="-124" y1="0" x2="-115" y2="0"/>
+        <line x1="-107.4" y1="-62" x2="-99.6" y2="-57.5"/><line x1="-62" y1="-107.4" x2="-57.5" y2="-99.6"/>
+      </g>
+    </g>
+    <!-- inner kanji band (counter-rotates) -->
+    <g>
+      <animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="40s" repeatCount="indefinite"/>
+      <text font-size="20" fill="#c084f5" opacity="0.85" font-family="'Noto Sans JP','Yu Gothic','Hiragino Sans',sans-serif">
+        <textPath href="#lm-ringInner" startOffset="5%">腐刻 · 3TCH ·</textPath>
+      </text>
+    </g>
+    <!-- 5 bind-rune spikes -->
+    <g stroke="#c084f5" stroke-width="2.5" opacity="0.78" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M0 -110.5 L0 -60.5 M-5.8 -71 L0 -60.5 L5.8 -71"/>
+      <path d="M105 -34 L57.5 -18.6 M53.9 -27.6 L57.5 -18.6 L49.1 -20.3"/>
+      <path d="M64.9 89.3 L35.6 48.9 M37.4 58.8 L35.6 48.9 L26.8 51.8"/>
+      <path d="M-64.9 89.3 L-35.6 48.9 M-26.8 51.8 L-35.6 48.9 L-37.4 58.8"/>
+      <path d="M-105 -34 L-57.5 -18.6 M-49.1 -20.3 L-57.5 -18.6 L-53.9 -27.6"/>
+    </g>
+    <!-- M-14 -10 L-6 -10 L-6 -2 L-14 -2 Z M-2 4 L6 4 L6 12 L-2 12 Z M10 -10 L16 -10 L16 -2 L10 -2 Z M-6 -6 L13 -6 L13 -2 M2 -2 L2 4 core glyph (scale 2.5 → ~±45px; stroke 1.6 × 2.5 = 4px eff) -->
+    <g stroke="#c084f5" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="scale(2.5)" filter="url(#lm-glow)">
+      <path d="M-14 -10 L-6 -10 L-6 -2 L-14 -2 Z M-2 4 L6 4 L6 12 L-2 12 Z M10 -10 L16 -10 L16 -2 L10 -2 Z M-6 -6 L13 -6 L13 -2 M2 -2 L2 4"/>
+    </g>
+    <!-- pommel dots -->
+    <g fill="#c084f5">
+      <circle cx="0" cy="-60.5" r="3.5"/><circle cx="0" cy="60.5" r="3.5"/><circle cx="-52.5" cy="0" r="3"/><circle cx="52.5" cy="0" r="3"/>
+    </g>
+  </g>
+</svg>

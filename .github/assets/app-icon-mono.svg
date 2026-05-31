@@ -1,0 +1,29 @@
+<!-- Itasha Corp app icon (mono) — 1024×1024 — CRT-IC v3 symbolic variant -->
+<!-- Single-colour symbolic variant for Windows tray, Linux hicolor-symbolic, -->
+<!-- and notification glyphs. currentColor (defaults to #c084f5), transparent -->
+<!-- background, no plate, no kanji/kamea chrome — the bare summoning ring + 4 -->
+<!-- seal-ticks + the M-14 -10 L-6 -10 L-6 -2 L-14 -2 Z M-2 4 L6 4 L6 12 L-2 12 Z M10 -10 L16 -10 L16 -2 L10 -2 Z M-6 -6 L13 -6 L13 -2 M2 -2 L2 4 core glyph. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="3TCH symbolic icon">
+  <title>3TCH app icon — monochrome / symbolic</title>
+  <g color="#c084f5">
+    <!-- summoning ring + 4 seal-ticks -->
+    <g stroke="currentColor" fill="none">
+      <circle cx="512" cy="512" r="320" stroke-width="14"/>
+      <g stroke-width="18" stroke-linecap="round">
+        <line x1="512" y1="160" x2="512" y2="208"/>
+        <line x1="864" y1="512" x2="816" y2="512"/>
+        <line x1="512" y1="864" x2="512" y2="816"/>
+        <line x1="160" y1="512" x2="208" y2="512"/>
+      </g>
+    </g>
+    <!-- M-14 -10 L-6 -10 L-6 -2 L-14 -2 Z M-2 4 L6 4 L6 12 L-2 12 Z M10 -10 L16 -10 L16 -2 L10 -2 Z M-6 -6 L13 -6 L13 -2 M2 -2 L2 4 core glyph (centred, scaled to fill the ring). -->
+    <!-- scale 8.4 → glyph spans ~±150px; stroke 1.8 × 8.4 ≈ 15px effective: -->
+    <!-- a bold line-figure, NOT a filled blob. -->
+    <g transform="translate(512,512)">
+      <g stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="scale(8.4)">
+        <path d="M-14 -10 L-6 -10 L-6 -2 L-14 -2 Z M-2 4 L6 4 L6 12 L-2 12 Z M10 -10 L16 -10 L16 -2 L10 -2 Z M-6 -6 L13 -6 L13 -2 M2 -2 L2 4"/>
+      </g>
+    </g>
+  </g>
+  <style>@media (prefers-reduced-motion: reduce) { * { animation: none !important; } }</style>
+</svg>
