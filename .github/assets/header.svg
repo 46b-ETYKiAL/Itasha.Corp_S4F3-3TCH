@@ -66,7 +66,7 @@
       <circle cx="460" cy="624" r="1.6" style="animation: dataBlink 2.6s ease-in-out 0s infinite;"/>
       <circle cx="920" cy="666" r="1.6" style="animation: dataBlink 3.1s ease-in-out 0.8s infinite;"/>
       <circle cx="1300" cy="600" r="1.6" style="animation: dataBlink 2.4s ease-in-out 1.4s infinite;"/>
-      <circle cx="650" cy="678" r="1.6" fill="#d4a8f8" style="animation: dataBlink 3.4s ease-in-out 2s infinite;"/>
+      <circle cx="650" cy="678" r="1.6" fill="#d4abf8" style="animation: dataBlink 3.4s ease-in-out 2s infinite;"/>
     </g>
     <!-- CRT roll bar: soft band drifting down the screen -->
     <rect x="28" y="22" width="1624" height="46" fill="#c084f5" opacity="0.035" style="animation: rollBar 7s linear infinite;"/>
@@ -158,7 +158,7 @@
   <g style="animation: flicker 7s infinite;">
     <text x="840" y="92" text-anchor="middle" font-size="14" fill="#5a6b73" letter-spacing="8" filter="url(#phos)" style="font-family: 'Times New Roman','Times','Matisse',serif; font-weight: 700; transform: scaleX(0.82); transform-origin: 840px 92px; animation: titleBreathe 6s ease-in-out infinite;">I T A S H A . C O R P</text>
     <g font-size="68" font-weight="bold" letter-spacing="6" text-anchor="middle">
-      <text x="843" y="168" fill="#d4a8f8" opacity="0.5" filter="url(#soft)" style="animation: titleGlitch 5.5s steps(1) infinite; transform-origin: 840px 168px;">3TCH</text>
+      <text x="843" y="168" fill="#d4abf8" opacity="0.5" filter="url(#soft)" style="animation: titleGlitch 5.5s steps(1) infinite; transform-origin: 840px 168px;">3TCH</text>
       <text x="837" y="168" fill="#c084f5" opacity="0.5" filter="url(#soft)" style="animation: titleGlitch 6.3s steps(1) 0.1s infinite; transform-origin: 840px 168px;">3TCH</text>
       <text x="840" y="168" fill="#e9f7ff" filter="url(#glow)" style="animation: titleBreathe 4s ease-in-out infinite;">3TCH</text>
     </g>
@@ -184,76 +184,63 @@
     <!-- WIDE RIGHT-SIDE INSTRUMENT CLUSTER (uses the right third)     -->
     <!-- Layered: oscilloscope/ECG waveform w/ traveling trace-dot     -->
     <!-- (animateMotion+mpath) + elliptical radar sweep w/ blips +     -->
-    <!-- spectrum-bar equalizer + node-graph + per-repo GRAPH // node etch      -->
+    <!-- spectrum-bar equalizer + node-graph + per-repo GRAPH // node pipeline      -->
     <!-- status panel. All load-bearing motion is SMIL (GitHub <img>). -->
     <!-- ============================================================ -->
     <g transform="translate(1090, 258)" style="animation: flicker 9s infinite;" opacity="0.92">
-      <text x="20" y="20" fill="#c084f5" font-size="9.5" letter-spacing="1.6" opacity="0.7">GRAPH // node etch</text>
+      <text x="20" y="20" fill="#c084f5" font-size="9.5" letter-spacing="1.6" opacity="0.7">GRAPH // node pipeline</text>
 
-      <!-- (1) oscilloscope / ECG waveform with traveling trace dot -->
-      <g>
-        <rect x="20" y="32" width="440" height="78" rx="3" fill="none" stroke="#c084f5" stroke-width="0.5" opacity="0.25"/>
-        <line x1="20" y1="71" x2="460" y2="71" stroke="#c084f5" stroke-width="0.4" opacity="0.18"/>
-        <path id="wave" d="M20 71 L84 71 L100 71 L112 42 L128 104 L144 56 L160 71 L246 71 L262 71 L276 50 L292 96 L308 71 L398 71 L412 71 L428 54 L444 90 L460 71"
-              fill="none" stroke="#c084f5" stroke-width="1.1" opacity="0.85" filter="url(#phos)"/>
-        <circle r="2.4" fill="#e9f7ff" filter="url(#glow)">
-          <animateMotion dur="3.4s" repeatCount="indefinite" rotate="auto"><mpath href="#wave"/></animateMotion>
-        </circle>
-        <circle r="1.5" fill="#c084f5">
-          <animateMotion dur="3.4s" begin="0.5s" repeatCount="indefinite"><mpath href="#wave"/></animateMotion>
-        </circle>
+      <!-- BESPOKE per-repo right instrument (plan-611). The       <g filter="url(#phos)">
+        <g stroke="#c084f5" stroke-width="1.1" fill="none" opacity="0.4">
+          <path d="M120 70 C170 70 170 130 220 130"/><path d="M220 130 C270 130 270 70 320 70"/>
+          <path d="M120 190 C180 190 180 130 220 130"/><path d="M320 70 C380 70 380 140 430 140"/>
+        </g>
+        <g>
+          <g><rect x="40" y="50" width="80" height="40" rx="4" fill="#c084f5" fill-opacity="0.1" stroke="#c084f5" stroke-width="1"/><text x="80" y="74" text-anchor="middle" font-size="9" fill="#c084f5">load</text></g>
+          <g><rect x="40" y="170" width="80" height="40" rx="4" fill="#c084f5" fill-opacity="0.1" stroke="#c084f5" stroke-width="1"/><text x="80" y="194" text-anchor="middle" font-size="9" fill="#c084f5">prompt</text></g>
+          <g><rect x="180" y="110" width="80" height="40" rx="4" fill="#d4abf8" fill-opacity="0.14" stroke="#d4abf8" stroke-width="1.2"/><text x="220" y="134" text-anchor="middle" font-size="9" fill="#d4abf8">sample</text></g>
+          <g><rect x="280" y="50" width="80" height="40" rx="4" fill="#c084f5" fill-opacity="0.1" stroke="#c084f5" stroke-width="1"/><text x="320" y="74" text-anchor="middle" font-size="9" fill="#c084f5">vae</text></g>
+          <g><rect x="390" y="120" width="80" height="40" rx="4" fill="#c084f5" fill-opacity="0.1" stroke="#c084f5" stroke-width="1"/><text x="430" y="144" text-anchor="middle" font-size="9" fill="#c084f5">save</text></g>
+        </g>
+        <circle r="2.6" fill="#e9f7ff" filter="url(#glow)"><animateMotion dur="3s" repeatCount="indefinite" path="M120 70 C170 70 170 130 220 130 C270 130 270 70 320 70 C380 70 380 140 430 140"/></circle>
       </g>
-
-      <!-- (2) elliptical radar sweep + staggered blips -->
-      <g transform="translate(86, 214)">
-        <ellipse rx="76" ry="50" fill="none" stroke="#c084f5" stroke-width="0.5" opacity="0.3"/>
-        <ellipse rx="50" ry="32" fill="none" stroke="#c084f5" stroke-width="0.4" opacity="0.22"/>
-        <ellipse rx="22" ry="15" fill="none" stroke="#c084f5" stroke-width="0.4" opacity="0.18"/>
-        <g opacity="0.55">
-          <path d="M0 0 L76 0 A76 50 0 0 1 38 43.3 Z" fill="url(#radarSweep)">
-            <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="5s" repeatCount="indefinite"/>
-          </path>
+      <text x="40" y="226" font-size="10" fill="#6fb89a" font-family="monospace">etch latents · provenance-tagged</text>
+        -->
+      <!-- placeholder is filled by repo_motif_library.get_motif(MOTIF_KEY).   -->
+      <!-- Authored once at header scale; the social card reuses the same      -->
+      <!-- fragment via       <g filter="url(#phos)">
+        <g stroke="#c084f5" stroke-width="1.1" fill="none" opacity="0.4">
+          <path d="M120 70 C170 70 170 130 220 130"/><path d="M220 130 C270 130 270 70 320 70"/>
+          <path d="M120 190 C180 190 180 130 220 130"/><path d="M320 70 C380 70 380 140 430 140"/>
         </g>
-        <circle cx="42" cy="-18" r="2" fill="#c084f5"><animate attributeName="opacity" values="0;1;0" dur="5s" begin="0.6s" repeatCount="indefinite"/></circle>
-        <circle cx="-34" cy="22" r="2" fill="#c084f5"><animate attributeName="opacity" values="0;1;0" dur="5s" begin="2.1s" repeatCount="indefinite"/></circle>
-        <circle cx="18" cy="32" r="1.8" fill="#e9f7ff"><animate attributeName="opacity" values="0;1;0" dur="5s" begin="3.4s" repeatCount="indefinite"/></circle>
-        <circle r="2.2" fill="#c084f5" filter="url(#glow)"/>
+        <g>
+          <g><rect x="40" y="50" width="80" height="40" rx="4" fill="#c084f5" fill-opacity="0.1" stroke="#c084f5" stroke-width="1"/><text x="80" y="74" text-anchor="middle" font-size="9" fill="#c084f5">load</text></g>
+          <g><rect x="40" y="170" width="80" height="40" rx="4" fill="#c084f5" fill-opacity="0.1" stroke="#c084f5" stroke-width="1"/><text x="80" y="194" text-anchor="middle" font-size="9" fill="#c084f5">prompt</text></g>
+          <g><rect x="180" y="110" width="80" height="40" rx="4" fill="#d4abf8" fill-opacity="0.14" stroke="#d4abf8" stroke-width="1.2"/><text x="220" y="134" text-anchor="middle" font-size="9" fill="#d4abf8">sample</text></g>
+          <g><rect x="280" y="50" width="80" height="40" rx="4" fill="#c084f5" fill-opacity="0.1" stroke="#c084f5" stroke-width="1"/><text x="320" y="74" text-anchor="middle" font-size="9" fill="#c084f5">vae</text></g>
+          <g><rect x="390" y="120" width="80" height="40" rx="4" fill="#c084f5" fill-opacity="0.1" stroke="#c084f5" stroke-width="1"/><text x="430" y="144" text-anchor="middle" font-size="9" fill="#c084f5">save</text></g>
+        </g>
+        <circle r="2.6" fill="#e9f7ff" filter="url(#glow)"><animateMotion dur="3s" repeatCount="indefinite" path="M120 70 C170 70 170 130 220 130 C270 130 270 70 320 70 C380 70 380 140 430 140"/></circle>
       </g>
-
-      <!-- (3) spectrum-bar equalizer + status panel (per-repo motif) -->
-      <g transform="translate(244, 162)">
-        <g fill="#c084f5" opacity="0.7">
-          <rect x="0" y="44" width="5" height="12"><animate attributeName="height" values="6;36;12;26;6" dur="2.2s" repeatCount="indefinite"/><animate attributeName="y" values="56;26;50;36;56" dur="2.2s" repeatCount="indefinite"/></rect>
-          <rect x="10" y="44" width="5" height="20"><animate attributeName="height" values="16;6;34;14;16" dur="2.6s" repeatCount="indefinite"/><animate attributeName="y" values="46;56;28;48;46" dur="2.6s" repeatCount="indefinite"/></rect>
-          <rect x="20" y="44" width="5" height="8"><animate attributeName="height" values="28;12;22;38;28" dur="2.0s" repeatCount="indefinite"/><animate attributeName="y" values="34;50;40;24;34" dur="2.0s" repeatCount="indefinite"/></rect>
-          <rect x="30" y="44" width="5" height="26"><animate attributeName="height" values="8;30;16;36;8" dur="2.8s" repeatCount="indefinite"/><animate attributeName="y" values="54;32;46;26;54" dur="2.8s" repeatCount="indefinite"/></rect>
-          <rect x="40" y="44" width="5" height="16"><animate attributeName="height" values="24;8;36;14;24" dur="2.4s" repeatCount="indefinite"/><animate attributeName="y" values="38;54;26;48;38" dur="2.4s" repeatCount="indefinite"/></rect>
-          <rect x="50" y="44" width="5" height="22"><animate attributeName="height" values="12;34;8;28;12" dur="2.1s" repeatCount="indefinite"/><animate attributeName="y" values="50;28;54;34;50" dur="2.1s" repeatCount="indefinite"/></rect>
+      <text x="40" y="226" font-size="10" fill="#6fb89a" font-family="monospace">etch latents · provenance-tagged</text>
+     (scale 0.82).                    -->
+      <g transform="translate(0, 8)">
+              <g filter="url(#phos)">
+        <g stroke="#c084f5" stroke-width="1.1" fill="none" opacity="0.4">
+          <path d="M120 70 C170 70 170 130 220 130"/><path d="M220 130 C270 130 270 70 320 70"/>
+          <path d="M120 190 C180 190 180 130 220 130"/><path d="M320 70 C380 70 380 140 430 140"/>
         </g>
-        <g transform="translate(0, 76)" filter="url(#phos)">
-          <rect x="0" y="0" width="216" height="52" rx="3" fill="none" stroke="#c084f5" stroke-width="0.7" opacity="0.3"/>
-          <text x="12" y="18" font-size="9.5" fill="#c084f5" letter-spacing="1.2">ETCH</text>
-          <text x="204" y="18" text-anchor="end" font-size="8.5" fill="#6fb89a"><animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>ETCHING</text>
-          <line x1="12" y1="26" x2="204" y2="26" stroke="#5a6b73" stroke-width="0.5" opacity="0.4"/>
-          <text x="12" y="42" font-size="9" fill="#c8d6dc">nodes</text>
-          <text x="204" y="42" text-anchor="end" font-size="8.5" fill="#c084f5" letter-spacing="0.6">resolved</text>
+        <g>
+          <g><rect x="40" y="50" width="80" height="40" rx="4" fill="#c084f5" fill-opacity="0.1" stroke="#c084f5" stroke-width="1"/><text x="80" y="74" text-anchor="middle" font-size="9" fill="#c084f5">load</text></g>
+          <g><rect x="40" y="170" width="80" height="40" rx="4" fill="#c084f5" fill-opacity="0.1" stroke="#c084f5" stroke-width="1"/><text x="80" y="194" text-anchor="middle" font-size="9" fill="#c084f5">prompt</text></g>
+          <g><rect x="180" y="110" width="80" height="40" rx="4" fill="#d4abf8" fill-opacity="0.14" stroke="#d4abf8" stroke-width="1.2"/><text x="220" y="134" text-anchor="middle" font-size="9" fill="#d4abf8">sample</text></g>
+          <g><rect x="280" y="50" width="80" height="40" rx="4" fill="#c084f5" fill-opacity="0.1" stroke="#c084f5" stroke-width="1"/><text x="320" y="74" text-anchor="middle" font-size="9" fill="#c084f5">vae</text></g>
+          <g><rect x="390" y="120" width="80" height="40" rx="4" fill="#c084f5" fill-opacity="0.1" stroke="#c084f5" stroke-width="1"/><text x="430" y="144" text-anchor="middle" font-size="9" fill="#c084f5">save</text></g>
         </g>
+        <circle r="2.6" fill="#e9f7ff" filter="url(#glow)"><animateMotion dur="3s" repeatCount="indefinite" path="M120 70 C170 70 170 130 220 130 C270 130 270 70 320 70 C380 70 380 140 430 140"/></circle>
       </g>
-
-      <!-- (4) node-graph w/ traveling pulses along edges (staggered SMIL) -->
-      <g transform="translate(86, 214)" filter="url(#phos)">
-        <g stroke="#c084f5" stroke-width="0.7" opacity="0.3">
-          <line id="e1" x1="0" y1="0" x2="-54" y2="-28"/><line id="e2" x1="0" y1="0" x2="54" y2="-24"/>
-          <line id="e3" x1="0" y1="0" x2="-38" y2="28"/>
-        </g>
-        <g fill="#c084f5">
-          <circle cx="-54" cy="-28" r="2.6" style="animation: nodeBlink 3s ease-in-out 0s infinite;"/>
-          <circle cx="54" cy="-24" r="2.6" style="animation: nodeBlink 3s ease-in-out 0.9s infinite;"/>
-          <circle cx="-38" cy="28" r="2.6" style="animation: nodeBlink 3s ease-in-out 1.7s infinite;"/>
-        </g>
-        <circle r="1.8" fill="#e9f7ff"><animateMotion dur="2.6s" begin="0s" repeatCount="indefinite"><mpath href="#e1"/></animateMotion></circle>
-        <circle r="1.8" fill="#e9f7ff"><animateMotion dur="2.6s" begin="0.7s" repeatCount="indefinite"><mpath href="#e2"/></animateMotion></circle>
-        <circle r="1.8" fill="#e9f7ff"><animateMotion dur="2.6s" begin="1.3s" repeatCount="indefinite"><mpath href="#e3"/></animateMotion></circle>
+      <text x="40" y="226" font-size="10" fill="#6fb89a" font-family="monospace">etch latents · provenance-tagged</text>
+    
       </g>
     </g>
     </g>
@@ -262,7 +249,7 @@
   <g>
     <circle cx="56" cy="707" r="3.5" fill="#6fb89a" opacity="0.7" style="animation: heartbeat 2.4s ease-in-out infinite; transform-origin: 56px 707px;"/>
     <circle cx="71" cy="707" r="3" fill="#c084f5" opacity="0.45"/>
-    <circle cx="86" cy="707" r="3" fill="#d4a8f8" opacity="0.4"/>
+    <circle cx="86" cy="707" r="3" fill="#d4abf8" opacity="0.4"/>
     <text x="108" y="707" font-size="9" fill="#3a4a52" letter-spacing="3.2" dominant-baseline="central">ITASHA.CORP</text>
     <text x="840" y="707" font-size="9" fill="#3a4a52" letter-spacing="3" dominant-baseline="central" text-anchor="middle">ETCH-CORE · present day · present time</text>
     <text x="1608" y="707" font-size="9" fill="#3a4a52" letter-spacing="2.4" dominant-baseline="central" text-anchor="end">CRT-IC v3</text>

@@ -71,7 +71,7 @@
   <g>
     <circle cx="52" cy="200" r="3.2" fill="#6fb89a" opacity="0.7" style="animation: fheart 2.4s ease-in-out infinite; transform-origin: 52px 200px;"/>
     <circle cx="66" cy="200" r="2.6" fill="#c084f5" opacity="0.45"/>
-    <circle cx="80" cy="200" r="2.6" fill="#d4a8f8" opacity="0.3"/>
+    <circle cx="80" cy="200" r="2.6" fill="#d4abf8" opacity="0.3"/>
     <text x="100" y="200" font-size="8.5" fill="#3a4a52" letter-spacing="3" dominant-baseline="central">ITASHA.CORP</text>
     <text x="640" y="200" text-anchor="middle" font-size="8.5" fill="#2c3a42" letter-spacing="2.4" dominant-baseline="central">ETCH-CORE · present day · present time</text>
     <text x="1232" y="200" font-size="8.5" fill="#3a4a52" letter-spacing="2.4" dominant-baseline="central" text-anchor="end">CRT-IC v3</text>
