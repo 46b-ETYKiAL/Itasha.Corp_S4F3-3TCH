@@ -1,4 +1,4 @@
-<!-- Itasha Corp brand banner — aspect ratio 21:9 (1680×720) — CRT-IC v3 -->
+<!-- Itasha Corp brand banner — aspect ratio 21:9 (1680×720) — CRT-IC v5 -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1680 720" width="1680" height="720" role="img" aria-label="3TCH — Itasha Corp">
   <defs>
     <pattern id="scan" patternUnits="userSpaceOnUse" width="1680" height="4">
@@ -345,7 +345,7 @@
     <circle cx="86" cy="707" r="3" fill="#d4abf8" opacity="0.4"/>
     <text x="108" y="707" font-size="9" fill="#3a4a52" letter-spacing="3.2" dominant-baseline="central">ITASHA.CORP</text>
     <text x="840" y="707" font-size="9" fill="#3a4a52" letter-spacing="3" dominant-baseline="central" text-anchor="middle">ETCH-CORE · present day · present time</text>
-    <text x="1608" y="707" font-size="9" fill="#3a4a52" letter-spacing="2.4" dominant-baseline="central" text-anchor="end">CRT-IC v3</text>
+    <text x="1608" y="707" font-size="9" fill="#3a4a52" letter-spacing="2.4" dominant-baseline="central" text-anchor="end">CRT-IC v5</text>
     <circle cx="1624" cy="707" r="4" fill="#6fb89a" opacity="0.5"/>
     <circle cx="1624" cy="707" r="2" fill="#6fb89a" opacity="0.95" style="animation: heartbeat 2.4s ease-in-out infinite; transform-origin: 1624px 707px;"/>
   </g>
